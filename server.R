@@ -1,4 +1,6 @@
 library(shiny)
+library(ggplot2)
+library(gsheet)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -9,12 +11,14 @@ shinyServer(function(input, output) {
   #  1) It is "reactive" and therefore should re-execute automatically
   #     when inputs change
   #  2) Its output type is a plot
-
+  
+  
+  df<-gsheet2tbl('https://docs.google.com/spreadsheets/d/1ibu_mY1Ej91GUYP6oE0RghcnEadcsKPTniDnz2_0f_A/edit?usp=sharing')
+  
+  df$ts <- as.Date( df$ts, '%m/%d/%Y')
+  
+  
   output$distPlot <- renderPlot({
-    x    <- faithful[, 2]  # Old Faithful Geyser data
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    plot(ggplot( data = df, aes( ts, d )) + geom_line())
   })
 })
