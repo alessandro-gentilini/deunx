@@ -16,7 +16,7 @@ shinyServer(function(input, output) {
   #  2) Its output type is a plot
   
   raw <- getURL("https://raw.githubusercontent.com/alessandro-gentilini/deunx/master/DEUNX.csv")
-  df<- read.csv(text=raw,sep=",",header=TRUE)
+  df <- read.csv(text=raw,sep=",",header=TRUE)
 
   
   
@@ -37,7 +37,7 @@ shinyServer(function(input, output) {
     geom_line(aes(color="raw")) +
     geom_line(data = df6, aes(x = ts, y = d, color = "mov. avg. 6")) +
     geom_line(data = df7, aes(x = ts, y = d, color = "mov. avg. 7")) +
-    labs(color="")
+    labs(color="",title="D E U N X")
     
   
   output$distPlot <- renderPlot({
