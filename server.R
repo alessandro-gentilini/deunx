@@ -1,6 +1,6 @@
 library(shiny)
 library(ggplot2)
-library(gsheet)
+library(RCurl)
 library(reshape2)
 library(zoo)
 
@@ -15,8 +15,10 @@ shinyServer(function(input, output) {
   #     when inputs change
   #  2) Its output type is a plot
   
+  raw <- getURL("https://raw.githubusercontent.com/alessandro-gentilini/deunx/master/DEUNX.csv")
+  df<- read.csv(text=raw,sep=",",header=TRUE)
+
   
-  df<-gsheet2tbl('https://docs.google.com/spreadsheets/d/1ibu_mY1Ej91GUYP6oE0RghcnEadcsKPTniDnz2_0f_A/edit?usp=sharing')
   
   date_fmt <- "%m/%d/%Y"
   
